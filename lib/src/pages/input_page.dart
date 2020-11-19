@@ -10,6 +10,12 @@ class _InputPageState extends State<InputPage> {
   String _name  = '';
   String _email = '';
   String _password = '';
+  String _date = '';
+
+  List<String> _brands = ['Toyota', 'Opel', 'Nissan', 'Honda', 'Renault', 'Ford', 'Fiat', 'Audi', 'Volkswagen', 'Skoda'];
+  String _optSelected = 'Toyota';
+
+  TextEditingController _inputFieldDateController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +30,13 @@ class _InputPageState extends State<InputPage> {
           Divider(),
           _createEmail(),
           Divider(),
-          _createPerson(),
-          Divider(),
           _createPassword(),
           Divider(),
           _createDate(context),
+          Divider(),
+          _createDropdown(),
+          Divider(),
+          _createPerson(),
         ],
       ),
     );
@@ -106,6 +114,7 @@ class _InputPageState extends State<InputPage> {
   Widget _createDate( BuildContext context ) {
     return TextField(
       enableInteractiveSelection: false,
+      controller: _inputFieldDateController,
       keyboardType: TextInputType.datetime,
       decoration: InputDecoration(
           border: OutlineInputBorder(
@@ -127,12 +136,59 @@ class _InputPageState extends State<InputPage> {
   _selectDate(BuildContext context) async{
 
     DateTime picked = await showDatePicker(
-        context: null,
-        initialDate: null,
-        firstDate: null,
-        lastDate: null
+        context: context,
+        locale: Locale('es', 'ES'),
+        initialDate: new DateTime.now(),
+        firstDate: new DateTime(2018),
+        lastDate: new DateTime(2025)
     );
+
+    if ( picked != null ) {
+      setState(() {
+        _date = picked.toString();
+        _inputFieldDateController.text = _date;
+      });
+    }
+
+  } // _selectDate
+
+
+  List<DropdownMenuItem<String>> getOptionsDropdown() {
+
+    List<DropdownMenuItem<String>> list = new List();
+    
+    _brands.forEach( (brand) {
+      list.add( DropdownMenuItem(
+          child: Text(brand),
+          value: brand
+      ));
+
+    });
+
+    return list;
   }
+
+  Widget _createDropdown() {
+
+    return Row(
+      children: [
+        Icon(Icons.select_all),
+        SizedBox(width: 20.0),
+        Expanded(
+          child: DropdownButton(
+            value: _optSelected,
+            items: getOptionsDropdown(),
+            onChanged: (opt){
+              setState(() {
+                _optSelected = opt;
+              });
+            },
+          ),
+        ),
+      ],
+    );
+
+  } // _createDropdown
 
   Widget _createPerson() {
     return ListTile(
@@ -140,4 +196,9 @@ class _InputPageState extends State<InputPage> {
       subtitle: Text('Email: $_email'),
     );
   }
+
+  _metodo(){
+
+  }
+
 }

@@ -6,7 +6,9 @@ final _icons = <String, IconData>{
   'accessibility' : Icons.accessibility,
   'folder_open'   : Icons.folder_open,
   'agriculture'   : Icons.agriculture,
-  'input'         : Icons.input
+  'input'         : Icons.input,
+  'view_carousel' : Icons.view_carousel,
+  'list'          : Icons.list
 
 };
 

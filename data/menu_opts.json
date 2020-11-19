@@ -25,6 +25,16 @@
             "ruta" : "inputs",
             "icon" : "input",
             "texto": "inputs"
+        },
+        {
+            "ruta" : "slider",
+            "icon" : "view_carousel",
+            "texto": "Sliders"
+        },
+        {
+            "ruta" : "listview",
+            "icon" : "list",
+            "texto": "Listview"
         }
     ]
 }
